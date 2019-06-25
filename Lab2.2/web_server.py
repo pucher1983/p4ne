@@ -49,19 +49,22 @@ app = Flask(__name__)
 @app.route("/")
 @app.route("/index")
 def index():
-    return "Lab 2.2 web site. Go to /config to list the hostnames. Go to /configs/hostname to view all IP ot the host"
+    return "Lab 2.2 web site. Go to <a href=\"/configs\">/configs</a> to list the hostnames. <br>Go to /configs/hostname to view all IP ot the host"
 
 
 @app.route("/configs")
 def configs():
     s = ''
     for i in host_ip_dict:
-        s += i + '\n'
+        s += '<a href=\"/configs/' + i + '\">' + i + '</a><br>'
     return s
 
 @app.route("/configs/<hostname>")
 def host_ips(hostname):
-    return str(host_ip_dict[hostname])
+    s = ''
+    for i in host_ip_dict[hostname]:
+        s += i + '<br>'
+    return s
 
 
 if __name__ == '__main__':

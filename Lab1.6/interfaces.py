@@ -46,7 +46,7 @@ print(host_ip_dict)
 print(host_ip_dict['beeline-catme3400'])
 
 s = ''
-for i in host_ip_dict:
+for i in host_ip_dict['cam-cat4900']:
     s += i + '\n'
     # print(i)
 print(s)
