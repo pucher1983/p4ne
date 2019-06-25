@@ -3,6 +3,8 @@ import ipaddress
 import re
 
 
+hostnames = {}
+
 def find_hostnames(input_str):
     if re.match("hostname", input_str):
         return input_str[9:]
@@ -15,10 +17,6 @@ def find_ips(input_str):
     else:
         return None
 
-interfaces = []
-ip_addresses = []
-hostnames = {}
-hostnames_ips = {}
 
 lab_path = "C:\\Users\\pucher\\Documents\\Seafile\\p4ne_training\\config_files"
 file_list = glob.iglob(lab_path + "\\*.txt")
@@ -27,10 +25,8 @@ for f in file_list:
     with open(f) as file:
         content = file.readlines()
         for line in content:
-            pass # to be done
             temp = find_hostnames(line.strip())
             if temp:
-                # print(file.name + temp)
                 hostnames[file.name] = [temp,[]]
 
 print(hostnames)
