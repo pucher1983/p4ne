@@ -1,7 +1,6 @@
 import glob
-import ipaddress
 import re
-
+from flask import Flask
 
 file_host_ip_dict = {}
 host_ip_dict = {}
@@ -43,10 +42,27 @@ for i in file_host_ip_dict:
     host_ip_dict[file_host_ip_dict[i][0]]=file_host_ip_dict[i][1]
 
 print(host_ip_dict)
-print(host_ip_dict['beeline-catme3400'])
 
-s = ''
-for i in host_ip_dict:
-    s += i + '\n'
-    # print(i)
-print(s)
+app = Flask(__name__)
+
+
+@app.route("/")
+@app.route("/index")
+def index():
+    return "Lab 2.2 web site. Go to /config to list the hostnames. Go to /configs/hostname to view all IP ot the host"
+
+
+@app.route("/configs")
+def configs():
+    s = ''
+    for i in host_ip_dict:
+        s += i + '\n'
+    return s
+
+@app.route("/configs/<hostname>")
+def host_ips(hostname):
+    return str(host_ip_dict[hostname])
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
